@@ -30,6 +30,11 @@ namespace elasticsearch
             var settings = new ConnectionSettings(pool);
             client = new ElasticClient(settings);
 
+            //create side panel
+            var myUserControl1 = new SearchPanel();
+            var myCustomTaskPane = this.CustomTaskPanes.Add(myUserControl1, "My Task Pane");
+            myCustomTaskPane.Visible = true;
+
         }
 
         private void ThisAddIn_Shutdown(object sender, System.EventArgs e)
