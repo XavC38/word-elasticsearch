@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Elasticsearch;
 
 namespace elasticsearch
 {
@@ -46,15 +47,7 @@ namespace elasticsearch
 
             if (e.KeyChar == (char)13)
             {
-                //get the content of the search
-                string theText = null;
-                TextBox textBox = sender as TextBox;
-                if (textBox != null)
-                {
-                    theText = textBox.Text;
-                }
-                //send the request on enter
-                //print all the value in a new object each time
+                Search();
             }
         }
 
@@ -67,5 +60,42 @@ namespace elasticsearch
         {
 
         }
+
+        private void Search_Click(object sender, EventArgs e)
+        {
+            Search();
+            CreateSearchBox();
+        }
+
+        private void Search()
+        {
+            //get the content of the search
+            string currSearch = null;
+            currSearch = SearchBar.Text;
+
+            // the text is not null then we send the search
+            if (currSearch != null)
+            {
+                System.Windows.Forms.MessageBox.Show(currSearch);
+                
+                
+            } 
+            
+            
+            //send the request on enter
+            //print all the value in a new object each time
+        }
+            
+        private void CreateSearchBox()
+        {
+            SearchResultBox newSearchBox = new SearchResultBox();
+            //add a search box
+            //TODO add the scroll to the list and not limited
+            SearchFLP.Controls.Add(newSearchBox);
+
+        }
+
+
     }
+
 }
