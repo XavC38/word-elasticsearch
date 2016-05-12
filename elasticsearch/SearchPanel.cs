@@ -64,20 +64,48 @@ namespace elasticsearch
         private void Search_Click(object sender, EventArgs e)
         {
             Search();
-            CreateSearchBox();
+            
+        }
+        private void CreateSearchBox(String title, List<String> tags, String text)
+        {
+            SearchResultBox newSearchBox = new SearchResultBox();
+            //add a search box
+            //TODO add the scroll to the list and not limited
+            newSearchBox.setTitle(title);
+            newSearchBox.setTags(tags);
+            newSearchBox.setText(text);
+            SearchFLP.Controls.Add(newSearchBox);
+
+
         }
 
         private void Search()
         {
             //get the content of the search
             string currSearch = null;
+            List<Document> response = new List<Document>();
             currSearch = SearchBar.Text;
+            
 
             // the text is not null then we send the search
             if (currSearch != null)
             {
-                System.Windows.Forms.MessageBox.Show(currSearch);
-                
+                //System.Windows.Forms.MessageBox.Show(currSearch);
+                response = Elasticsearch.getDocuments(currSearch);
+                //System.Windows.Forms.MessageBox.Show(response.Count.ToString());
+
+                if (response.Count > 0)
+                {
+                    //we clear the interface
+                    SearchFLP.Controls.Clear();
+                }
+
+                foreach (Document d in response)
+                {
+                    //System.Windows.Forms.MessageBox.Show(d.Title);
+                    CreateSearchBox(d.Title, null, d.Corp);
+                }
+
                 
             } 
             
@@ -86,14 +114,7 @@ namespace elasticsearch
             //print all the value in a new object each time
         }
             
-        private void CreateSearchBox()
-        {
-            SearchResultBox newSearchBox = new SearchResultBox();
-            //add a search box
-            //TODO add the scroll to the list and not limited
-            SearchFLP.Controls.Add(newSearchBox);
-
-        }
+       
 
 
     }

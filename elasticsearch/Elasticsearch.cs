@@ -15,7 +15,14 @@ namespace elasticsearch
 
         public Elasticsearch()
         {
+            /*var nodes = new Uri[]
+            {
+                new Uri("http://localhost:9200")
+            };
 
+            var pool = new StaticConnectionPool(nodes);
+            var settings = new ConnectionSettings(pool);
+            client = new ElasticClient(settings);*/
         }
         
         public ElasticClient getClient()
@@ -37,9 +44,33 @@ namespace elasticsearch
         }
 
         //get documents in function of the search
-        public List<Document> getDocuments(String searchRequest)
+        public static List<Document> getDocuments(String searchTxt)
         {
-            return null;
+            var result = new List<Document>();
+
+            QueryContainer query = new TermQuery
+            {
+                Field = "corp",
+                Value = searchTxt
+            };
+
+            var searchRequest = new SearchRequest
+            {
+                From = 0,
+                Size = 10,
+                Query = query
+            };
+
+            var searchResults = ThisAddIn.client.Search<Document>(searchRequest);
+            
+            
+            foreach (var d in searchResults.Documents)
+            {
+                result.Add(d);
+            }
+
+            return result;
+            
         }
     }
 }

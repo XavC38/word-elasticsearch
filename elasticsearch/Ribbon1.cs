@@ -33,7 +33,7 @@ namespace elasticsearch
 
                 var mydoc = new Document
                 {
-                    Id = "1",
+                    //Id = null,
                     Corp = selectText,
                     Title = "kimchy"
                     

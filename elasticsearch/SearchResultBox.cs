@@ -26,5 +26,25 @@ namespace elasticsearch
         {
 
         }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        public void setTitle(string title)
+        {
+            this.Title.Text = title;
+        }
+
+        public void setTags(List<string> tags)
+        {
+
+        }
+
+        public void setText(string text)
+        {
+            this.SearchResultTb.Text = text;
+        }
     }
 }
