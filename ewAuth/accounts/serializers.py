@@ -15,10 +15,16 @@ class UserCreateSerializer(ModelSerializer):
             'password',
         ]
 
-class TenantSerializer(ModelSerializer):
+class UserSerializer(ModelSerializer):
     class Meta:
         model = User
         fields = [
-            'id',
             'email',
+            'date_of_birth',
+            'is_admin',
         ]
+
+class TenantSerializer(ModelSerializer):
+    class Meta:
+        model = User
+        fields = '__all__'
